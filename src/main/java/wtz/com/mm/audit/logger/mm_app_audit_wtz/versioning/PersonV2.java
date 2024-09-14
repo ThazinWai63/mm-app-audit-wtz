@@ -1,0 +1,23 @@
+package wtz.com.mm.audit.logger.mm_app_audit_wtz.versioning;
+
+public class PersonV2 {
+	
+	private Name name;
+
+	public PersonV2(Name name) {
+		super();
+		this.name = name;
+	}
+
+	public Name getName() {
+		return name;
+	}
+
+	@Override
+	public String toString() {
+		return "PersonV2 [name=" + name + "]";
+	}
+	
+	
+
+}
