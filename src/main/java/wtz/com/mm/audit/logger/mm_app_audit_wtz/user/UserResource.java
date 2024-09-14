@@ -3,6 +3,10 @@ package wtz.com.mm.audit.logger.mm_app_audit_wtz.user;
 import java.net.URI;
 import java.util.List;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
+
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,16 +36,16 @@ public class UserResource {
 		
 	}
 	
-	@GetMapping("/users/{id}")
-	public User retrieveUserById(@PathVariable int id){
-		
-		User user = service.findOne(id);
-		
-		if(user==null) throw new UserNotFoundException("id: " + id );
-		
-		return user;
-		
-	}
+//	@GetMapping("/users/{id}")
+//	public User retrieveUserById(@PathVariable int id){
+//		
+//		User user = service.findOne(id);
+//		
+//		if(user==null) throw new UserNotFoundException("id: " + id );
+//		
+//		return user;
+//		
+//	}
 	
 	//POST /users
 	@PostMapping("/users")
@@ -61,6 +65,26 @@ public class UserResource {
 	@DeleteMapping("/users/{id}")
 	public void deleteUserById(@PathVariable int id){
 		service.deleteById(id);
+		
+	}
+	
+	//HATEOAS
+	//http://localhost:8084/users
+	//EntityModel
+	//WebMVCLinkBuilder
+	@GetMapping("/users/{id}")
+	public EntityModel<User> retrieveUserByIdHATEOAS(@PathVariable int id){
+		
+		User user = service.findOne(id);
+		
+		if(user==null) throw new UserNotFoundException("id: " + id );
+		
+		EntityModel<User> entityModel = EntityModel.of(user);
+		WebMvcLinkBuilder link = linkTo(methodOn(this.getClass()).retrieveAllUsers());
+		
+		entityModel.add(link.withRel("all-users"));
+		
+		return entityModel;
 		
 	}
 	
