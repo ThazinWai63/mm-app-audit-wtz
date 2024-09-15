@@ -6,15 +6,15 @@ public class AuditLog {
 	
 	private Integer auditId;
 	private String errorCode;
-	private String user_id;
+	private String userId;
 	private String username;
 	private String activityType;
 	private String activityDescription;
 	private String requestActionEndpoint;
 	private String responseStatus;
 	private String requestType;
-	private Date insert_date;
-	private Date lastupdated_date;
+	private Date insertDate;
+	private Date lastupdatedDate;
 	private String remarks;
 	
 
